@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>AQI</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,0,200" />
+    {% load static %}
+    <style>
+        form {
+            background-color: #f7f7f7;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            background: rgb(137,98,97);
+background: linear-gradient(90deg, rgba(137,98,97,1) 11%, rgba(155,120,119,1) 24%, rgba(169,137,136,1) 34%, rgba(180,150,150,1) 42%, rgba(208,184,184,1) 62%, rgb(235, 204, 204) 73%, rgb(242, 206, 206) 97%, rgb(237, 220, 220) 99%);
+            background-size: cover;
+            background-color: #c6c2c2;
+        }
+        form {
+            margin: 0 auto;
+            max-width: 1000px;
+            margin-top: 3%;
+        }
+        .col {
+            padding: 10x;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        br {
+            margin: 10px 0;
+        }
+        button.btn {
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    
+        button.btn:hover {
+            background-color: #0056b3;
+        }
+    
+        h2 {
+            font-size: 1.5rem;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+        h6 {
+            padding: 10px;
+            
+            margin-left: 95%;
+            border-radius: o.75rem;
+            text-decoration: none;
+        }
+    </style>
+    
+    </head>
+  <body>
+    <h6 class="mt-2"><a href="{% url 'log' %}"><span class="material-symbols-outlined" style="color: white;">
+        exit_to_app
+        </span></a></h6>
+    <form method="post" class="" autocomplete="on" id="myform">
+        {% csrf_token %}
+        <h1 class="text-center mt-3 mb-5 ">Air Quality Prediction</h1>
+
+        <div class="row ml-5 mr-5 mt-5" >
+            <div class="col" >
+                {{form.pm25.error}}
+                {{form.pm25}}
+            </div>
+            <div class="col">
+                {{form.pm10.error}}
+                {{form.pm10}}
+            </div>
+            <div class="col">
+                {{form.no.error}}
+                {{form.no}}
+            </div>
+        </div><br><br>
+        <div class="row ml-5 mr-5">
+            <div class="col">
+                {{form.no2.error}}
+                 {{form.no2}}
+            </div>
+            <div class="col">
+                {{form.nox.error}}
+                {{form.nox}}
+            </div>
+            <div class="col">
+                {{form.nh3.error}}
+                {{form.nh3}}
+            </div>
+        </div><br><br>
+        <div class="row ml-5 mr-5">
+            <div class="col">
+                {{form.co.error}}
+                {{form.co}}
+            </div>
+            <div class="col">
+                {{form.so2.error}}
+                {{form.so2}}
+            </div>
+            <div class="col">
+                {{form.o3.error}}
+                {{form.o3}}
+            </div>
+        </div><br><br>
+        <div class="row ml-5 mr-5">
+            <div class="col">
+                {{form.benzene.error}}
+                {{form.benzene}}
+            </div>
+            <div class="col">
+                {{form.toluene.error}}
+                {{form.toluene}}
+            </div>
+            <div class="col">
+                {{form.xylene.error}}
+                {{form.xylene}}
+            </div>
+        </div><br>
+        <div class="row ml-5 mr-5">
+            <div class="col"></div>
+            <div class="col ">
+                <button type="submit" class="btn btn-info btn-block ">Predict AQI</button>
+            </div>
+            <div class="col"></div>
+        </div>
+        
+    </form>
+    <div class="row" style="width: 100%;">
+          <div class="col">
+            {% if prediction %}
+            <h2 id="output">Predicted AQI: {{ prediction }}</h2>
+            <div class="text-center mb-3">
+            <img c; src="{{ plot_url }}" alt="Pie Chart" >
+        {% endif %}
+          </div>
+        </div>
+    </div>
+    
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById('output').style.display = 'none'; 
+            }, 5000); 
+        });
+       
+        </script> -->
+        
+</body>
+</html>
